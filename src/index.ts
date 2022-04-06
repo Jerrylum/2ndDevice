@@ -11,13 +11,19 @@ let proxyOptions = {
     endUpstreamWhenCommanderGone: true,
     kickCommanderWhenUpstreamEnd: true,
     kickFollowersWhenUpstreamEnd: false,
-    spectatorHotbar: true
+    spectatorHotbar: true,
+    serverOptions: {
+        version: '1.18.1'
+    },
+    clientOptions: {
+        version: '1.18.1'
+    }
 }
 
 let upstreamTarget: UpstreamTarget = {
     onlineMode: true,
     port: 25565,
-    host: 'localhost',
+    host: 'minehut.com',
     loginUser: 'tom',
     commander: [] // empty array means the one same with the loginUser
 };

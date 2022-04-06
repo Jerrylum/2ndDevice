@@ -25,7 +25,7 @@ export interface UpstreamTarget {
 
 export class DownstreamGamestate {
     realEntityId = 0;
-    watchingMockPlayer = false;
+    watchingMockPlayer = true;
     mockInWorld = false;
 }
 
