@@ -6,8 +6,8 @@ import { MyProxy, UpstreamTarget } from "./proxy/MyProxy";
 
 let proxyOptions = {
     onlineMode: true,
-    host: '0.0.0.0',
     port: 25566,
+    host: '0.0.0.0',
     endUpstreamWhenCommanderGone: true,
     kickCommanderWhenUpstreamEnd: true,
     kickFollowersWhenUpstreamEnd: false,

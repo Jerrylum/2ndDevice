@@ -1,7 +1,7 @@
 {
     "name": "2nd-device",
     "version": "1.0.0",
-    "description": "Allows you to control 1 player on two (or even more) Minecraft clients.",
+    "description": "Allows you to control one player on two (or even more) Minecraft clients.",
     "main": "index.js",
     "scripts": {
         "prepare": "tsc",
