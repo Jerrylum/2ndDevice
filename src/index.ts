@@ -150,8 +150,8 @@ function updateInventory(windowId: any, slotIdx: number, slotData: any) {
     }
 }
 
-function setupMockEnviromenet(client: ServerClient) {
-    if (!proxy.gamestate.myInfoRecevied) return;
+function setupMockEnvironment(client: ServerClient) {
+    if (!proxy.gamestate.myInfoReceived) return;
 
     if (upstreamTarget.commander.includes(client.username)) {
         return;
@@ -219,8 +219,8 @@ proxy.on('incoming', (data, meta) => {
         });
         return;
     } else if (packet_name === 'player_info') {
-        if (!proxy.gamestate.myInfoRecevied && data.action == 0) {
-            proxy.gamestate.myInfoRecevied = data.data.some((info: { UUID: string; }) =>
+        if (!proxy.gamestate.myInfoReceived && data.action == 0) {
+            proxy.gamestate.myInfoReceived = data.data.some((info: { UUID: string; }) =>
                 info.UUID === proxy.gamestate.givenUUID);
         };
     } else if (packet_name === 'abilities') {
@@ -252,7 +252,7 @@ proxy.on('incoming', (data, meta) => {
         allFollowers().forEach(client => {
             if (!proxy.downstreamGamestate[client.id].mockInWorld)
                 client.write(packet_name, data);
-            setupMockEnviromenet(client);
+            setupMockEnvironment(client);
         });
         return;
     } else if (packet_name === 'window_items') {
@@ -316,7 +316,7 @@ proxy.on('outgoing', (data, meta, sender) => {
         proxy.gamestate.coords = { ...proxy.gamestate.coords, ...data };
         updatePlayersPositionLook([sender]);
 
-        allClients().forEach(client => setupMockEnviromenet(client));
+        allClients().forEach(client => setupMockEnvironment(client));
     } else if (packet_name === 'position') {
         proxy.gamestate.coords = { ...proxy.gamestate.coords, ...data };
         updatePlayersPositionLook([sender]);

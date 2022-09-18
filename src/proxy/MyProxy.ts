@@ -33,12 +33,12 @@ export class UpstreamGamestate {
     givenEntityId = 0;
     givenName = 'Steve';
     givenUUID = '00000000-0000-0000-0000-000000000000';
-    myInfoRecevied = false;
-    coords = {x: 0, y: 0, z: 0, yaw: 0, pitch: 0, onGround: false};
+    myInfoReceived = false;
+    coords = { x: 0, y: 0, z: 0, yaw: 0, pitch: 0, onGround: false };
     pose = 0; // standing...
     slots = new Array(45);
     hotbarIdx = 0;
-    openingWindow = {windowId: -1, size: 100};
+    openingWindow = { windowId: -1, size: 100 };
 }
 
 export declare interface MyProxy {
@@ -51,9 +51,9 @@ export class MyProxy extends EventEmitter {
     downstream: Server;
     upstream?: Client;
     upstreamTarget?: UpstreamTarget;
-    
+
     // downstreamEntityId: {[key: number]: number} = {};
-    downstreamGamestate: {[key: number]: DownstreamGamestate} = {};
+    downstreamGamestate: { [key: number]: DownstreamGamestate } = {};
     gamestate = new UpstreamGamestate();
 
     constructor(options: ProxyOptions) {
@@ -67,8 +67,8 @@ export class MyProxy extends EventEmitter {
             ...this.options.serverOptions
         })
         this.downstream.on('login', client => this.onLogin(client))
-        this.downstream.on('error', (error) => { console.log('downsteam error:', error) });
-        this.downstream.on('listening', () => { console.log('downsteam listening') });
+        this.downstream.on('error', (error) => { console.log('downstream error:', error) });
+        this.downstream.on('listening', () => { console.log('downstream listening') });
     }
 
     setUpstreamTarget(target: UpstreamTarget) {
@@ -112,6 +112,7 @@ export class MyProxy extends EventEmitter {
         });
         this.upstream.on('connect', () => { console.log('connected to upstream'); });
         this.upstream.on('session', () => { console.log('successful authentication'); });
+        this.upstream.on('error', (error) => { console.log('upstream error:', error) });
         this.upstream.on('end', (reason) => {
             console.log('disconnected from upstream | reason:', reason);
 
@@ -132,7 +133,8 @@ export class MyProxy extends EventEmitter {
 
         if (this.upstream === undefined) return;
 
-        this.upstream.end();
+        this.upstream.end("Commander disconnected");
+        this.upstream.socket.destroy();
     }
 
     onLogin(downstreamClient: ServerClient): PromiseLike {
